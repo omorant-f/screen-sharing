@@ -1,0 +1,10 @@
+version: "3"
+services:
+  nodecg:
+    image: omorant/screen
+    container_name: screen
+    networks:
+      - my_network
+    restart: always
+    ports:
+      - "3000:3000"
