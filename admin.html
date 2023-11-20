@@ -1,0 +1,32 @@
+<!-- admin.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin</title>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <button onclick="startSharing()">Start Sharing</button>
+    <video id="video" style="display: none"></video>
+    <script>
+      const socket = io();
+      const video = document.getElementById("video");
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      async function startSharing() {
+        const stream = await navigator.mediaDevices.getDisplayMedia();
+        video.srcObject = stream;
+        video.onloadedmetadata = () => {
+          video.play();
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          setInterval(() => {
+            context.drawImage(video, 0, 0);
+            const image = canvas.toDataURL("image/jpeg");
+            socket.emit("stream", image);
+          }, 100);
+        };
+      }
+    </script>
+  </body>
+</html>
