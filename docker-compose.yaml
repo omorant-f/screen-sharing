@@ -1,6 +1,6 @@
 version: "3"
 services:
-  nodecg:
+  screen:
     image: omorant/screen
     container_name: screen
     networks:
@@ -8,3 +8,5 @@ services:
     restart: always
     ports:
       - "3000:3000"
+    environment:
+      - PORT=4000

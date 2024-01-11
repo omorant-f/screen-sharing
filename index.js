@@ -6,6 +6,7 @@ const basicAuth = require("express-basic-auth"); // Add this line
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
+const port = process.env.PORT || 3000;
 
 app.use(
   "/admin",
@@ -30,6 +31,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3000, () => {
-  console.log("Listening on port 3000");
+server.listen(port, () => {
+  console.log(`Listening on port ${port}`);
 });
